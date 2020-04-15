@@ -1,0 +1,4 @@
+apppath
+warg
+draugr
+six
