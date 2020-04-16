@@ -65,7 +65,7 @@ class ProjectNamePackage:
 
     @property
     def url(self) -> str:
-        return "https://github.com/user/PythonTestPackage"
+        return "https://github.com/cnheider/devpack"
 
     @property
     def download_url(self) -> str:
@@ -89,7 +89,7 @@ class ProjectNamePackage:
 
     @property
     def author_email(self):
-        return "name@domain.xx"
+        return "christian.heider@alexandra.dk"
 
     @property
     def maintainer_name(self):
@@ -121,7 +121,7 @@ class ProjectNamePackage:
 
         path = pathlib.Path(__file__).parent
         requirements_xx = []
-        with open(path / "requirements_xx.txt") as f:
+        with open(path / "requirements_dev.txt") as f:
             requirements = f.readlines()
 
             for requirement in requirements:

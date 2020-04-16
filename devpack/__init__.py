@@ -10,11 +10,11 @@ from pathlib import Path
 
 from apppath import AppPath
 
-__project__ = "PackageTemplate"
+__project__ = "devpack"
 __author__ = "Christian Heider Nielsen"
 __version__ = "0.0.1"
 __doc__ = """
-Created on 27/04/2019
+Created on 15/04/2020
 
 @author: cnheider
 """
