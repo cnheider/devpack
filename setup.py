@@ -19,7 +19,7 @@ import re
 from setuptools import find_packages, setup
 
 with open(
-    pathlib.Path(__file__).parent / "projectname" / "__init__.py", "r"
+    pathlib.Path(__file__).parent / "devpack" / "__init__.py", "r"
 ) as project_init_file:
     content = project_init_file.read()
     # get version string from module
