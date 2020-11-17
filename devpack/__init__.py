@@ -5,7 +5,6 @@ import os
 from warnings import warn
 
 import pkg_resources
-
 from apppath import AppPath
 
 __project__ = "devpack"
@@ -61,9 +60,9 @@ def get_version(append_time: Any = DEVELOP) -> str:
       # never desirable for artifact repositories, so we strip the
       # leading 'v' if it's present.
       version = (
-        version[1:]
-        if isinstance(version, str) and version.startswith("v")
-        else version
+          version[1:]
+          if isinstance(version, str) and version.startswith("v")
+          else version
       )
     else:
       # Default version is an ISO8601 compliant datetime. PyPI doesn't allow
@@ -77,8 +76,8 @@ def get_version(append_time: Any = DEVELOP) -> str:
       # Publications using datetime versions should only be made from master
       # to represent the HEAD moving forward.
       warn(
-        f"Environment variable VERSION is not set, only using datetime: {date_version}"
-        )
+          f"Environment variable VERSION is not set, only using datetime: {date_version}"
+          )
 
       # warn(f'Environment variable VERSION is not set, only using timestamp: {version}')
 

@@ -7,8 +7,8 @@ def python_version_check(major=3, minor=6):
   import sys
 
   assert sys.version_info.major == major and sys.version_info.minor >= minor, (
-    f"This project is utilises language features only present Python {major}.{minor} and greater. "
-    f"You are running {sys.version_info}."
+      f"This project is utilises language features only present Python {major}.{minor} and greater. "
+      f"You are running {sys.version_info}."
   )
 
 
@@ -20,18 +20,18 @@ import re
 from setuptools import find_packages, setup
 
 with open(
-  pathlib.Path(__file__).parent / "devpack" / "__init__.py", "r"
-  ) as project_init_file:
+    pathlib.Path(__file__).parent / "devpack" / "__init__.py", "r"
+    ) as project_init_file:
   content = project_init_file.read()
   # get version string from module
   version = re.search(r"__version__ = ['\"]([^'\"]*)['\"]", content, re.M).group(1)
 
   project_name = re.search(
-    r"__project__ = ['\"]([^'\"]*)['\"]", content, re.M
-    ).group(1)
+      r"__project__ = ['\"]([^'\"]*)['\"]", content, re.M
+      ).group(1)
   author = re.search(r"__author__ = ['\"]([^'\"]*)['\"]", content, re.M).group(
-    1
-    )  # get version string from module
+      1
+      )  # get version string from module
 __author__ = author
 
 
@@ -79,10 +79,10 @@ class ProjectNamePackage:
   @property
   def packages(self) -> List[Union[bytes, str]]:
     return find_packages(
-      exclude=[
-        # 'Path/To/Exclude'
-        ]
-      )
+        exclude=[
+            # 'Path/To/Exclude'
+            ]
+        )
 
   @property
   def author_name(self) -> str:
@@ -102,20 +102,20 @@ class ProjectNamePackage:
 
   @property
   def package_data(self) -> dict:
-    # data = glob.glob('data/', recursive=True)
+    emds = [str(p) for p in pathlib.Path(__file__).parent.rglob('.md')]
     return {
-      # 'PackageName':[
-      # *data
-      #  ]
-      }
+        'draugr':[
+            *emds
+            ]
+        }
 
   @property
   def entry_points(self) -> dict:
     return {
-      "console_scripts":[
-        # "name_of_executable = module.with:function_to_execute"
-        ]
-      }
+        "console_scripts":[
+            # "name_of_executable = module.with:function_to_execute"
+            ]
+        }
 
   @property
   def extras(self) -> dict:
@@ -129,9 +129,9 @@ class ProjectNamePackage:
         requirements_xx.append(requirement.strip())
 
     these_extras = {
-      # 'ExtraGroupName':['package-name; platform_system == "System(Linux,Windows)"'
-      "xx":requirements_xx
-      }
+        # 'ExtraGroupName':['package-name; platform_system == "System(Linux,Windows)"'
+        "xx":requirements_xx
+        }
 
     all_dependencies = []
 
@@ -173,20 +173,20 @@ class ProjectNamePackage:
   @property
   def classifiers(self) -> List[str]:
     return [
-      "Development Status :: 4 - Beta",
-      "Environment :: Console",
-      "Intended Audience :: End Users/Desktop",
-      "Intended Audience :: Developers",
-      "License :: OSI Approved :: Apache Software License",
-      "Operating System :: MacOS :: MacOS X",
-      "Operating System :: Microsoft :: Windows",
-      "Operating System :: POSIX",
-      "Operating System :: OS Independent",
-      "Programming Language :: Python :: 3",
-      "Natural Language :: English",
-      # 'Topic :: Scientific/Engineering :: Artificial Intelligence'
-      # 'Topic :: Software Development :: Bug Tracking',
-      ]
+        "Development Status :: 4 - Beta",
+        "Environment :: Console",
+        "Intended Audience :: End Users/Desktop",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: Microsoft :: Windows",
+        "Operating System :: POSIX",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Natural Language :: English",
+        # 'Topic :: Scientific/Engineering :: Artificial Intelligence'
+        # 'Topic :: Software Development :: Bug Tracking',
+        ]
 
   @property
   def version(self) -> str:
@@ -198,27 +198,27 @@ if __name__ == "__main__":
   pkg = ProjectNamePackage()
 
   setup(
-    name=pkg.package_name,
-    version=pkg.version,
-    packages=pkg.packages,
-    package_data=pkg.package_data,
-    author=pkg.author_name,
-    author_email=pkg.author_email,
-    maintainer=pkg.maintainer_name,
-    maintainer_email=pkg.maintainer_email,
-    description=pkg.description,
-    license=pkg.license,
-    keywords=pkg.keyword,
-    url=pkg.url,
-    download_url=pkg.download_url,
-    install_requires=pkg.requirements,
-    extras_require=pkg.extras,
-    setup_requires=pkg.setup_dependencies,
-    entry_points=pkg.entry_points,
-    classifiers=pkg.classifiers,
-    long_description_content_type=pkg.readme_type,
-    long_description=pkg.readme,
-    tests_require=pkg.test_dependencies,
-    include_package_data=True,
-    python_requires=">=3.6",
-    )
+      name=pkg.package_name,
+      version=pkg.version,
+      packages=pkg.packages,
+      package_data=pkg.package_data,
+      author=pkg.author_name,
+      author_email=pkg.author_email,
+      maintainer=pkg.maintainer_name,
+      maintainer_email=pkg.maintainer_email,
+      description=pkg.description,
+      license=pkg.license,
+      keywords=pkg.keyword,
+      url=pkg.url,
+      download_url=pkg.download_url,
+      install_requires=pkg.requirements,
+      extras_require=pkg.extras,
+      setup_requires=pkg.setup_dependencies,
+      entry_points=pkg.entry_points,
+      classifiers=pkg.classifiers,
+      long_description_content_type=pkg.readme_type,
+      long_description=pkg.readme,
+      tests_require=pkg.test_dependencies,
+      include_package_data=True,
+      python_requires=">=3.6",
+      )

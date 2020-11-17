@@ -14,13 +14,16 @@ def test_import():
   import devpack
   print(devpack.__version__)
 
+
 def test_apppath_import():
   import apppath
   print(apppath.__version__)
 
+
 def test_draugr_import():
   import draugr
   print(draugr.__version__)
+
 
 def test_warg_import():
   import warg

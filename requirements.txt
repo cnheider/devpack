@@ -1,4 +1,4 @@
-apppath
-warg
-draugr
+apppath[all]
+warg[all]
+draugr[all]
 six
