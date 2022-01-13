@@ -1,7 +1,6 @@
 import apppath
-import warg
-
 import draugr
+import warg
 
 print(warg.__version__)
 print(draugr.__version__)
