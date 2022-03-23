@@ -15,15 +15,15 @@ def install_develop():
         "PACKAGE_NAME", metavar="Name", type=str, help="Package name to install"
     )
     """
-  parser.add_argument(
-      "--SITE",
-      "-s",
-      type=bool,
-      default=False,
-      metavar="SITE",
-      help="Open user or site dirs (default: User)",
-      )
-  """
+parser.add_argument(
+    "--SITE",
+    "-s",
+    type=bool,
+    default=False,
+    metavar="SITE",
+    help="Open user or site dirs (default: User)",
+    )
+"""
     args = parser.parse_args()
 
     pip_install_development_package(args.PACKAGE_NAME)
