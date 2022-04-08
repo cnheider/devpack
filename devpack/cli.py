@@ -16,13 +16,13 @@ def install_develop():
     )
     """
 parser.add_argument(
-    "--SITE",
-    "-s",
-    type=bool,
-    default=False,
-    metavar="SITE",
-    help="Open user or site dirs (default: User)",
-    )
+  "--SITE",
+  "-s",
+  type=bool,
+  default=False,
+  metavar="SITE",
+  help="Open user or site dirs (default: User)",
+  )
 """
     args = parser.parse_args()
 
