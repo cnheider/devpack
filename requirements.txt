@@ -3,3 +3,4 @@ warg[all]
 draugr[all]
 black[d]
 six
+sorcery

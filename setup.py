@@ -4,7 +4,8 @@ from typing import List, Union
 
 
 def python_version_check(major=3, minor=6):
-    """ """
+    """
+    Check if the python version is equal to or greater than the specified version."""
     import sys
 
     assert sys.version_info.major == major and sys.version_info.minor >= minor, (
@@ -37,8 +38,15 @@ __author__ = author
 
 
 class DevPackPackage:
+    """
+    A class to represent a devpack package
+    """
+
     @property
     def test_dependencies(self) -> list:
+        """
+        The test dependencies
+        """
         path = pathlib.Path(__file__).parent
         requirements_tests = []
         with open(path / "requirements_tests.txt") as f:
@@ -51,7 +59,9 @@ class DevPackPackage:
 
     @property
     def setup_dependencies(self) -> list:
-        """ """
+        """
+        Get the setup dependencies
+        """
         path = pathlib.Path(__file__).parent
         requirements_setup = []
         with open(path / "requirements_setup.txt") as f:
@@ -64,27 +74,37 @@ class DevPackPackage:
 
     @property
     def package_name(self) -> str:
-        """ """
+        """
+        The name of the package
+        """
         return project_name
 
     @property
     def url(self) -> str:
-        """ """
-        return "https://github.com/cnheider/devpack"
+        """
+        A url to the project's homepage
+        """
+        return "https://github.com/pything/devpack"
 
     @property
     def download_url(self) -> str:
-        """ """
+        """
+        A URL to download the package from
+        """
         return f"{self.url}/releases"
 
     @property
     def readme_type(self) -> str:
-        """ """
+        """
+        The type of readme to use
+        """
         return "text/markdown"
 
     @property
     def packages(self) -> List[Union[bytes, str]]:
-        """ """
+        """
+        Return a list of packages to include in the distribution
+        """
         return find_packages(
             exclude=[
                 # 'Path/To/Exclude'
@@ -93,43 +113,60 @@ class DevPackPackage:
 
     @property
     def author_name(self) -> str:
-        """ """
+        """
+        A
+        """
         return author
 
     @property
     def author_email(self) -> str:
-        """ """
+        """
+        Author email
+        """
         return "christian.heider@alexandra.dk"
 
     @property
     def maintainer_name(self) -> str:
-        """ """
+        """
+        A name of the maintainer of the project
+        """
         return self.author_name
 
     @property
     def maintainer_email(self) -> str:
-        """ """
+        """
+        A property to return the maintainer email
+        """
         return self.author_email
 
     @property
     def package_data(self) -> dict:
-        """ """
+        """
+        Package data
+        """
         emds = [str(p) for p in pathlib.Path(__file__).parent.rglob(".md")]
-        return {"draugr": [*emds]}
+        return {self.package_name: [*emds]}
 
     @property
     def entry_points(self) -> dict:
-        """ """
+        """
+        Entry points for the devpack package
+
+        """
         return {
             "console_scripts": [
                 # "name_of_executable = module.with:function_to_execute"
-                "devpack_install = devpack.cli:install_develop"
+                "devpack_install = devpack.entry_points.cli:install_develop",
+                "devpack_uninstall = devpack.entry_points.cli:uninstall",
+                "devpack_add_readmes = devpack.entry_points.batch:recursively_add_readmes_from_here",
             ]
         }
 
     @property
     def extras(self) -> dict:
-        """ """
+        """
+        Extra requirements
+        """
         path = pathlib.Path(__file__).parent
         requirements_xx = []
         with open(path / "requirements_dev.txt") as f:
@@ -140,7 +177,7 @@ class DevPackPackage:
 
         these_extras = {
             # 'ExtraGroupName':['package-name; platform_system == "System(Linux,Windows)"'
-            "xx": requirements_xx
+            # "xx": requirements_xx
         }
 
         all_dependencies = []
@@ -153,7 +190,9 @@ class DevPackPackage:
 
     @property
     def requirements(self) -> list:
-        """ """
+        """
+        Requirements for the package
+        """
         requirements_out = []
         with open("requirements.txt") as f:
             requirements = f.readlines()
@@ -165,29 +204,39 @@ class DevPackPackage:
 
     @property
     def description(self) -> str:
-        """ """
-        return "Short descriptioon"
+        """
+        A short description of the project
+        """
+        return "DevPack is a package for managing your dev environment"
 
     @property
     def readme(self) -> str:
-        """ """
+        """
+        The readme for the project
+        """
         with open("README.md") as f:
             return f.read()
 
     @property
     def keyword(self) -> str:
-        """ """
+        """
+        A list of keywords that describe the package
+        """
         with open("KEYWORDS.md") as f:
             return f.read()
 
     @property
     def license(self) -> str:
-        """ """
+        """
+        The license of the project
+        """
         return "Apache License, Version 2.0"
 
     @property
     def classifiers(self) -> List[str]:
-        """ """
+        """
+        A list of classifiers
+        """
         return [
             "Development Status :: 4 - Beta",
             "Environment :: Console",
@@ -206,7 +255,9 @@ class DevPackPackage:
 
     @property
     def version(self) -> str:
-        """ """
+        """
+        The version of the package
+        """
         return version
 
 

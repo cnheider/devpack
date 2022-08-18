@@ -11,7 +11,7 @@ import subprocess
 import sys
 from typing import Optional
 
-__all__ = ["pip_install_development_package"]
+__all__ = ["pip_install_development_package", "pip_uninstall_package"]
 
 
 def pip_install_development_package(
@@ -20,7 +20,8 @@ def pip_install_development_package(
     extra_index: Optional[str] = "https://pypi.org/simple/",
     upgrade: bool = True,
 ) -> None:
-    """ """
+    """
+    Install package in development mode."""
     arguments = [
         "install",
         "--index-url",
@@ -40,6 +41,14 @@ def pip_install_development_package(
     # main(arguments)
 
     subprocess.check_call([sys.executable, "-m", "pip", *arguments])
+
+
+def pip_uninstall_package(package: str) -> None:
+    """
+    Same as pip uninstall package, but may be expanded to include other options, like apppath clean up.
+    #TODO: APPPATH CLEANUP
+    """
+    subprocess.check_call([sys.executable, "-m", "pip", "uninstall", package])
 
 
 if __name__ == "__main__":
