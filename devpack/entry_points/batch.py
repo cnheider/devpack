@@ -11,6 +11,7 @@ __all__ = []
 
 import argparse
 from pathlib import Path
+from tabnanny import verbose
 
 from devpack.batch_tools import TouchModeEnum, recursive_add_readmes
 
@@ -33,10 +34,16 @@ def recursively_add_readmes_from_here():
     parser.add_argument(
         "--readme-name", "-r", type=str, default="README.md", help="Readme name"
     )
+    parser.add_argument(
+        "--verbose", action="store_true", help="Verbose output of touched files"
+    )
     args = parser.parse_args()
 
     recursive_add_readmes(
-        args.path, touch_mode=args.touch_mode, readme_name=args.readme_name
+        args.path,
+        touch_mode=args.touch_mode,
+        readme_name=args.readme_name,
+        verbose=args.verbose,
     )
 
 

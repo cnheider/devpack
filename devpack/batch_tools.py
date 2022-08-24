@@ -32,10 +32,13 @@ def auto_add_readme(
     readme_name: str = "README.md",
     root_path: Optional[Path] = Path.cwd(),
     prefix="# ",
+    verbose: bool = True,
 ) -> None:
     """
     Add a readme to the root_path if it does not exist
 
+    :param verbose:
+    :type verbose:
     :param path:
     :param touch_mode:
     :param readme_name:
@@ -48,6 +51,8 @@ def auto_add_readme(
     readme_file = path / readme_name
     if not readme_file.exists():
         readme_file.touch()
+        if verbose:
+            print(f"Created {readme_file}")
         if touch_mode == TouchModeEnum.breadcrumb:
             assert root_path is not None
             readme_file.write_text(prefix + str(path.relative_to(root_path)))
@@ -87,6 +92,7 @@ def recursive_add_readmes(
     touch_mode: TouchModeEnum = TouchModeEnum.breadcrumb,
     readme_name: str = "README.md",
     root_path: Optional[Path] = None,
+    verbose: bool = True,
 ) -> None:
     """
     recursively add readmes to all children spanning from root_path
@@ -97,7 +103,11 @@ def recursive_add_readmes(
         root_path = path.parent
 
     auto_add_readme(
-        path, touch_mode=touch_mode, readme_name=readme_name, root_path=root_path
+        path,
+        touch_mode=touch_mode,
+        readme_name=readme_name,
+        root_path=root_path,
+        verbose=verbose,
     )
 
     for child in path.iterdir():
@@ -109,6 +119,7 @@ def recursive_add_readmes(
                     touch_mode=touch_mode,
                     readme_name=readme_name,
                     root_path=root_path,
+                    verbose=verbose,
                 )
             elif child.is_file():
                 pass
