@@ -10,8 +10,9 @@ __doc__ = r"""
 __all__ = ["auto_add_readme", "recursive_add_readmes", "TouchModeEnum"]
 
 from enum import Enum
+from functools import wraps
 from pathlib import Path
-from typing import Callable, Iterable, Optional
+from typing import Callable, Iterable, Optional, MutableMapping, Sequence
 
 from sorcery import assigned_names
 
@@ -62,6 +63,9 @@ def auto_add_readme(
             readme_file.write_text(prefix + str(readme_file.parent.name))
         else:
             raise ValueError(f"Unknown touch mode {touch_mode}")
+    else:
+        if verbose:
+            print(f"{readme_name} already exists at {path}")
 
 
 def is_python_module(path: Path) -> bool:
@@ -80,9 +84,23 @@ def is_python_package(path: Path) -> bool:
 
 def negate(f: Callable) -> Callable:
     """
-    Negate a function
+    Negate a function return
     """
-    return lambda *args, **kwargs: not f(*args, **kwargs)
+
+    @wraps(f)
+    def wrapper(*args: Sequence, **kwargs: MutableMapping):
+        """
+
+        :param args:
+        :type args:
+        :param kwargs:
+        :type kwargs:
+        :return:
+        :rtype:
+        """
+        return not f(*args, **kwargs)
+
+    return wrapper
 
 
 def recursive_add_readmes(
@@ -111,8 +129,10 @@ def recursive_add_readmes(
     )
 
     for child in path.iterdir():
-        if exclusion_filter is None or not any(flt(child) for flt in exclusion_filter):
-            if child.is_dir():
+        if child.is_dir():
+            if exclusion_filter is None or not any(
+                flt(child) for flt in exclusion_filter
+            ):
                 recursive_add_readmes(
                     child,
                     exclusion_filter,
@@ -121,8 +141,13 @@ def recursive_add_readmes(
                     root_path=root_path,
                     verbose=verbose,
                 )
-            elif child.is_file():
-                pass
+            else:
+                if verbose:
+                    print(
+                        f"{child} was excluded, filters:\n{[(flt.__name__, flt(child)) for flt in exclusion_filter]}"
+                    )
+        elif child.is_file():
+            pass
 
 
 if __name__ == "__main__":

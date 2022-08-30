@@ -7,10 +7,8 @@ __doc__ = r"""
 
 import argparse
 
-from devpack.devpack.development import pip_uninstall_package
-
-
-from .development import pip_install_development_package
+from devpack.development import pip_uninstall_package
+from devpack.development import pip_install_development_package
 
 
 def install_develop():

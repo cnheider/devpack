@@ -11,7 +11,6 @@ __all__ = []
 
 import argparse
 from pathlib import Path
-from tabnanny import verbose
 
 from devpack.batch_tools import TouchModeEnum, recursive_add_readmes
 
