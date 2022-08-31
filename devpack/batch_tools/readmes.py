@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Callable, Iterable, Optional
 
 from sorcery import assigned_names
+from warg.os.filtering import negate, is_python_package
 
 
 class TouchModeEnum(Enum):
@@ -32,10 +33,13 @@ def auto_add_readme(
     readme_name: str = "README.md",
     root_path: Optional[Path] = Path.cwd(),
     prefix="# ",
+    verbose: bool = True,
 ) -> None:
     """
     Add a readme to the root_path if it does not exist
 
+    :param verbose:
+    :type verbose:
     :param path:
     :param touch_mode:
     :param readme_name:
@@ -48,6 +52,8 @@ def auto_add_readme(
     readme_file = path / readme_name
     if not readme_file.exists():
         readme_file.touch()
+        if verbose:
+            print(f"Created {readme_file}")
         if touch_mode == TouchModeEnum.breadcrumb:
             assert root_path is not None
             readme_file.write_text(prefix + str(path.relative_to(root_path)))
@@ -57,27 +63,9 @@ def auto_add_readme(
             readme_file.write_text(prefix + str(readme_file.parent.name))
         else:
             raise ValueError(f"Unknown touch mode {touch_mode}")
-
-
-def is_python_module(path: Path) -> bool:
-    """
-    Check if path is a python module
-    """
-    return path.is_file() and path.suffix == ".py"
-
-
-def is_python_package(path: Path) -> bool:
-    """
-    Check if path is a python package
-    """
-    return path.is_dir() and (path / "__init__.py").exists()
-
-
-def negate(f: Callable) -> Callable:
-    """
-    Negate a function
-    """
-    return lambda *args, **kwargs: not f(*args, **kwargs)
+    else:
+        if verbose:
+            print(f"{readme_name} already exists at {path}")
 
 
 def recursive_add_readmes(
@@ -87,6 +75,7 @@ def recursive_add_readmes(
     touch_mode: TouchModeEnum = TouchModeEnum.breadcrumb,
     readme_name: str = "README.md",
     root_path: Optional[Path] = None,
+    verbose: bool = True,
 ) -> None:
     """
     recursively add readmes to all children spanning from root_path
@@ -97,22 +86,34 @@ def recursive_add_readmes(
         root_path = path.parent
 
     auto_add_readme(
-        path, touch_mode=touch_mode, readme_name=readme_name, root_path=root_path
+        path,
+        touch_mode=touch_mode,
+        readme_name=readme_name,
+        root_path=root_path,
+        verbose=verbose,
     )
 
     for child in path.iterdir():
-        if exclusion_filter is None or not any(flt(child) for flt in exclusion_filter):
-            if child.is_dir():
+        if child.is_dir():
+            if exclusion_filter is None or not any(
+                flt(child) for flt in exclusion_filter
+            ):
                 recursive_add_readmes(
                     child,
                     exclusion_filter,
                     touch_mode=touch_mode,
                     readme_name=readme_name,
                     root_path=root_path,
+                    verbose=verbose,
                 )
-            elif child.is_file():
-                pass
+            else:
+                if verbose:
+                    print(
+                        f"{child} was excluded, filters:\n{[(flt.__name__, flt(child)) for flt in exclusion_filter]}"
+                    )
+        elif child.is_file():
+            pass
 
 
 if __name__ == "__main__":
-    recursive_add_readmes("exclude")
+    recursive_add_readmes("../exclude")
