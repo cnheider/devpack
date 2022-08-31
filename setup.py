@@ -188,6 +188,7 @@ class DevPackPackage:
                 "devpack_install = devpack.entry_points.cli:install_develop",
                 "devpack_uninstall = devpack.entry_points.cli:uninstall",
                 "devpack_add_readmes = devpack.entry_points.batch:recursively_add_readmes_from_here",
+                "devpack_remove_inits = devpack.entry_points.batch:recursively_remove_inits_from_here",
             ]
         }
 

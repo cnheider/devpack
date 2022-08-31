@@ -10,11 +10,11 @@ __doc__ = r"""
 __all__ = ["auto_add_readme", "recursive_add_readmes", "TouchModeEnum"]
 
 from enum import Enum
-from functools import wraps
 from pathlib import Path
-from typing import Callable, Iterable, Optional, MutableMapping, Sequence
+from typing import Callable, Iterable, Optional
 
 from sorcery import assigned_names
+from warg.os.filtering import negate, is_python_package
 
 
 class TouchModeEnum(Enum):
@@ -68,41 +68,6 @@ def auto_add_readme(
             print(f"{readme_name} already exists at {path}")
 
 
-def is_python_module(path: Path) -> bool:
-    """
-    Check if path is a python module
-    """
-    return path.is_file() and path.suffix == ".py"
-
-
-def is_python_package(path: Path) -> bool:
-    """
-    Check if path is a python package
-    """
-    return path.is_dir() and (path / "__init__.py").exists()
-
-
-def negate(f: Callable) -> Callable:
-    """
-    Negate a function return
-    """
-
-    @wraps(f)
-    def wrapper(*args: Sequence, **kwargs: MutableMapping):
-        """
-
-        :param args:
-        :type args:
-        :param kwargs:
-        :type kwargs:
-        :return:
-        :rtype:
-        """
-        return not f(*args, **kwargs)
-
-    return wrapper
-
-
 def recursive_add_readmes(
     path: Path,
     exclusion_filter: Optional[Iterable[Callable]] = (negate(is_python_package),),
@@ -151,4 +116,4 @@ def recursive_add_readmes(
 
 
 if __name__ == "__main__":
-    recursive_add_readmes("exclude")
+    recursive_add_readmes("../exclude")
