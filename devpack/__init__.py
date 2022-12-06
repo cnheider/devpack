@@ -10,7 +10,7 @@ from apppath import AppPath
 
 __project__ = "devpack"
 __author__ = "Christian Heider Nielsen"
-__version__ = "0.0.6"
+__version__ = "0.0.7"
 __doc__ = """
 Created on 15/04/2020
 
@@ -18,6 +18,18 @@ Created on 15/04/2020
 """
 
 from typing import Any
+
+__all__ = [
+    "PROJECT_APP_PATH",
+    "PROJECT_NAME",
+    "PROJECT_VERSION",
+    "get_version",
+    "PROJECT_ORGANISATION",
+    "PROJECT_AUTHOR",
+    "PROJECT_YEAR",
+    # "INCLUDE_PROJECT_READMES",
+    # "PACKAGE_DATA_PATH"
+]
 
 
 def dist_is_editable(dist: Any) -> bool:
@@ -38,6 +50,7 @@ PROJECT_VERSION = __version__
 PROJECT_YEAR = 2018
 PROJECT_AUTHOR = __author__.lower().strip().replace(" ", "_")
 PROJECT_APP_PATH = AppPath(app_name=PROJECT_NAME, app_author=PROJECT_AUTHOR)
+PROJECT_ORGANISATION = "pything"
 
 distributions = {v.key: v for v in pkg_resources.working_set}
 if PROJECT_NAME in distributions:
