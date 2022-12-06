@@ -8,3 +8,13 @@ __doc__ = r"""
            """
 
 __all__ = []
+
+# from .alls import *
+# from .inits import *
+# from .aliases import *
+# from .readmes import *
+# from .privates import *
+# from .docs import *
+# from .shebangs import *
+# from .entry_points import *
+# from .authors import *

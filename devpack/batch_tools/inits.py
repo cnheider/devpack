@@ -7,21 +7,32 @@ __doc__ = r"""
            Created on 8/30/22
            """
 
-__all__ = []
+__all__ = ["recursive_remove_inits"]
 
 from pathlib import Path
 from typing import Callable, Iterable, Optional
 
-from warg.os.filtering import negate, is_python_package
+from warg.os_utilities.filtering import negate, is_python_module
 
 
 def recursive_remove_inits(
     path: Path,
-    exclusion_filter: Optional[Iterable[Callable]] = (negate(is_python_package),),
+    exclusion_filter: Optional[Iterable[Callable]] = (negate(is_python_module),),
     *,
     init_name: str = "__init__.py",
     verbose: bool = True,
 ):
+    """
+
+    :param path:
+    :type path:
+    :param exclusion_filter:
+    :type exclusion_filter:
+    :param init_name:
+    :type init_name:
+    :param verbose:
+    :type verbose:
+    """
     path = Path(path)
 
     init_file = path / init_name
