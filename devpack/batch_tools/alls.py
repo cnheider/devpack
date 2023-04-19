@@ -270,7 +270,6 @@ def recursive_check_alls(
             if exclusion_filter is None or not any(
                 flt(child) for flt in exclusion_filter
             ):
-
                 recursive_check_alls(
                     child,
                     exclusion_filter,

@@ -12,8 +12,8 @@ __all__ = []
 import argparse
 from pathlib import Path
 
-from devpack.batch_tools.readmes import TouchModeEnum, recursive_add_readmes
 from devpack.batch_tools.inits import recursive_remove_inits
+from devpack.batch_tools.readmes import TouchModeEnum, recursive_add_readmes
 
 
 def recursively_add_readmes_from_here():
