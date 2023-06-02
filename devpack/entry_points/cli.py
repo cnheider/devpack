@@ -12,7 +12,7 @@ from devpack.development import pip_uninstall_package
 
 
 def install_develop():
-    """description"""
+    """For programmatically installing a package as a development install"""
     parser = argparse.ArgumentParser(description="DevPack Develop Installation")
     parser.add_argument(
         "PACKAGE_NAME", metavar="Name", type=str, help="Package name to install"
@@ -33,7 +33,7 @@ help="Open user or site dirs (default: User)",
 
 
 def uninstall():
-    """description"""
+    """For programmatically uninstalling a package"""
     parser = argparse.ArgumentParser(description="DevPack Uninstall")
     parser.add_argument(
         "PACKAGE_NAME", metavar="Name", type=str, help="Package name to uninstall"

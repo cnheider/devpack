@@ -15,7 +15,6 @@ from pathlib import Path
 from typing import Optional, Callable, Iterable
 
 from draugr.os_utilities.linux_utilities.user_utilities import get_username
-
 from warg.os_utilities.filtering import is_python_module, negate
 
 
