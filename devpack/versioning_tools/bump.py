@@ -37,6 +37,8 @@ def version_partition(version: str) -> str:
 
 
 def version_bump(version: str, order: BumpOrderEnum = BumpOrderEnum.patch) -> str:
+    # TODO: HANDLE weird alpha, beta, rc versioning e.g. 1.2a, 12.3.alpha, 1.2.3.4rc
+
     partitioned = version_partition(version)
 
     if len(partitioned) == 1:
