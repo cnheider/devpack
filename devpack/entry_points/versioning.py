@@ -1,8 +1,6 @@
 import argparse
 from pathlib import Path
 
-from devpack.versioning_tools.bump import version_bump
-
 
 def bump():
     """

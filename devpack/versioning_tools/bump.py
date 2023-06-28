@@ -1,6 +1,7 @@
-from pathlib import Path
-from sorcery import assigned_names
 from enum import Enum
+from pathlib import Path
+
+from sorcery import assigned_names
 
 
 class BumpOrderEnum(Enum):
@@ -10,7 +11,10 @@ class BumpOrderEnum(Enum):
 
 
 def bump_version_import(
-    module_name: str, package: str = None, order: BumpOrderEnum = BumpOrderEnum.patch
+    module_name: str,
+    package: str = None,
+    order: BumpOrderEnum = BumpOrderEnum.patch,
+    reset_lower_order: bool = True,
 ) -> str:
     import importlib
 
@@ -18,7 +22,7 @@ def bump_version_import(
 
     version = module.__version__
 
-    return version_bump(version)
+    return version_bump(version, reset_lower_order=reset_lower_order)
 
 
 def version_partition(version: str) -> str:
@@ -36,10 +40,16 @@ def version_partition(version: str) -> str:
     return (version,)
 
 
-def version_bump(version: str, order: BumpOrderEnum = BumpOrderEnum.patch) -> str:
+def version_bump(
+    version: str,
+    order: BumpOrderEnum = BumpOrderEnum.patch,
+    reset_lower_order: bool = True,
+) -> str:
     # TODO: HANDLE weird alpha, beta, rc versioning e.g. 1.2a, 12.3.alpha, 1.2.3.4rc
 
     partitioned = version_partition(version)
+
+    # TODO: USE reset_lower_order!
 
     if len(partitioned) == 1:
         return str(int(partitioned[0]) + 1)
@@ -71,6 +81,9 @@ def version_bump(version: str, order: BumpOrderEnum = BumpOrderEnum.patch) -> st
         pre = str(pre) + "."
 
     if post != "":
+        if reset_lower_order:
+            post = ".".join(["0" for p in post.split(".")])
+
         post = "." + str(post)
 
     return pre + str(int(ordered) + 1) + post
@@ -110,5 +123,7 @@ if __name__ == "__main__":
             print(version_bump("1.2", order=e))
             print(version_bump("1.2.3", order=e))
             print(version_bump("1.2.3.4", order=e))
+            print("_")
+            print(version_bump("1.2.3.4", order=e, reset_lower_order=False))
 
     ujhasduhau()
