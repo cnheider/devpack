@@ -9,7 +9,6 @@ PACKAGE_ROOT = Path(__file__).parent.parent.parent
 print(f"PACKAGE_ROOT: {PACKAGE_ROOT}")
 sys.path.insert(0, str(PACKAGE_ROOT.absolute()))
 
-
 from devpack import (
     PROJECT_AUTHOR,
     PROJECT_NAME,
@@ -30,10 +29,9 @@ from devpack import (
 # ones.
 
 extensions = [
-    "sphinxcontrib.programoutput",
+    "sphinx.ext.napoleon",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
-    "sphinx.ext.napoleon",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
@@ -90,8 +88,6 @@ rst_epilog = f"""
 """
 '''
 
-# import pkg_resources
-# version = pkg_resources.get_distribution('myproject').version
 version = PROJECT_VERSION
 release = version  # 'master'
 

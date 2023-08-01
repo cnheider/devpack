@@ -12,8 +12,8 @@ __all__ = []
 import argparse
 from pathlib import Path
 
-from devpack.batch_tools.readmes import TouchModeEnum, recursive_add_readmes
 from devpack.batch_tools.inits import recursive_remove_inits
+from devpack.batch_tools.readmes import TouchModeEnum, recursive_add_readmes
 
 
 def recursively_add_readmes_from_here():
@@ -71,6 +71,27 @@ def recursively_remove_inits_from_here():
     )
 
 
+def recursively_check_typing():
+    """
+    Add readmes to all python modules in the current directory
+    """
+    parser = argparse.ArgumentParser(description="DevPack remove inits from here")
+    parser.add_argument(
+        "--path", "-p", type=Path, default=Path.cwd(), help="Path to remove inits from"
+    )
+    parser.add_argument(
+        "--verbose", action="store_true", help="Verbose output of removed files"
+    )
+    args = parser.parse_args()
+
+    recursive_remove_inits(
+        args.path,
+        init_name=args.init_name,
+        verbose=args.verbose,
+    )
+
+
 if __name__ == "__main__":
-    recursively_add_readmes_from_here()
-    recursively_remove_inits_from_here()
+    # recursively_add_readmes_from_here()
+    # recursively_remove_inits_from_here()
+    recursively_check_typing()

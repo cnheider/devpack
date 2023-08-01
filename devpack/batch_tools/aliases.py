@@ -14,7 +14,7 @@ __all__ = ["recursive_detect_import_aliasing"]
 from pathlib import Path
 from typing import Iterable, Callable, Optional, Sequence, Mapping, List
 
-from warg.os_utilities.filtering import negate, is_python_module, is_python_package
+from warg.os_utilities.filtering import negate, is_python_package
 
 
 def has_import_aliases(path: Path, *, verbose: bool = False) -> bool:

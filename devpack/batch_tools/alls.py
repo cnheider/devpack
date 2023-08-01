@@ -245,6 +245,10 @@ def check_alls(path: Path, *, verbose: bool = True) -> None:
                     print("WARNING library file with empty __all__ declaration")
 
 
+def has_multiple_alls() -> bool:
+    ...
+
+
 def recursive_check_alls(
     path: Path,
     exclusion_filter: Optional[Iterable[Callable]] = (negate(is_python_package),),
@@ -270,7 +274,6 @@ def recursive_check_alls(
             if exclusion_filter is None or not any(
                 flt(child) for flt in exclusion_filter
             ):
-
                 recursive_check_alls(
                     child,
                     exclusion_filter,
