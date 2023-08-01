@@ -9,7 +9,7 @@ from apppath import AppPath
 
 __project__ = "devpack"
 __author__ = "Christian Heider Nielsen"
-__version__ = "0.0.7"
+__version__ = "0.0.8"
 __doc__ = """
 Created on 15/04/2020
 
